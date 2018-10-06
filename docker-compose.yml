@@ -1,0 +1,29 @@
+version: '3'
+volumes:
+  mysql_data:
+services:
+  mysql-database:
+    image: mysql:5.7
+    container_name: mysql-database
+    ports:
+      - 3308:3306
+    expose:
+      - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web-crapper:
+    image: lrbarzola/laravel
+    container_name: web-crapper
+    ports:
+      - 8080:80
+    expose:
+      - 80
+    volumes:
+      - ${PWD}:/var/www/app
+    links:
+      - mysql-database
+    tty: true
