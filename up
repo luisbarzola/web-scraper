@@ -6,5 +6,5 @@ docker-compose up -d
 echo "### Application running in http://localhost:8080"
 echo ""
 
-echo "### Starting worker"
+echo "### Running worker"
 ./run php artisan queue:work --queue=scraper

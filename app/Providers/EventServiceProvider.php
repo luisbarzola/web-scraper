@@ -12,13 +12,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\UserSocialEvent' => [
-            'App\Listeners\UserSocialScraper',
-        ],
 
-        'App\Events\WebScraperFinished' => [
-            'App\Listeners\SaveDataScraper',
-            'App\Listeners\ClientNotification',
-        ],
     ];
 }

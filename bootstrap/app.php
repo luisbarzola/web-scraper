@@ -25,8 +25,6 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
-$app->configure('twitter');
-
 $app->withEloquent();
 
 /*
@@ -50,11 +48,6 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
-$app->singleton(
-    \App\Services\Twitter\Contracts\TwitterInterface::class,
-    \App\Services\Twitter\Manager::class
-);
-
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -74,9 +67,6 @@ $app->singleton(
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
-$app->routeMiddleware([
-    'source' => App\Http\Middleware\SourceMiddleware::class,
-]);
 
 /*
 |--------------------------------------------------------------------------
@@ -89,9 +79,20 @@ $app->routeMiddleware([
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-$app->register(App\Providers\EventServiceProvider::class);
+// $app->register(App\Providers\EventServiceProvider::class);
+
+/*
+|--------------------------------------------------------------------------
+| Register Social Service Providers
+|--------------------------------------------------------------------------
+|
+|
+*/
+
+$app->register(App\Providers\SocialServiceProvider::class);
+
+$app->register(App\Providers\TwitterServiceProvider::class);
+
 
 /*
 |--------------------------------------------------------------------------
