@@ -11,6 +11,8 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+
+Route::group(['prefix' => 'twitter', 'middleware' => ['source:twitter']], function () {
+    Route::post('user/render/{user}', 'TwitterController@renderUser');
+    Route::get('user/{user}', 'TwitterController@showUser');
 });

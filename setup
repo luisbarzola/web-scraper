@@ -6,10 +6,6 @@ if [ ! -f .env ]; then
     cp .env.example .env
 fi
 
-# Build docker images
-echo "### Building images ###"
-docker-compose build
-
 echo "### Starting containers ###"
 docker-compose up -d
 
@@ -23,7 +19,6 @@ docker run --rm --interactive --tty \
 
 # Application setup
 echo "### Application setup ###"
-./run php artisan key:generate
 ./run php artisan migrate
 
 echo "### DONE! ###"

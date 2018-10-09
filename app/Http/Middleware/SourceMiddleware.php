@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\SocialUser;
+
 use Closure;
 
-class ExampleMiddleware
+class SourceMiddleware
 {
     /**
      * Handle an incoming request.
@@ -13,8 +15,11 @@ class ExampleMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $source)
     {
+        $class = 'App\Scopes\\' . $source . 'Scope';
+        SocialUser::addGlobalScope(new $class);
+
         return $next($request);
     }
 }

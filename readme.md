@@ -18,3 +18,12 @@ And the application will be running in [http://localhost:8080](http://localhost:
 ```yaml
 ports:
   - 9090:80
+```
+
+To scrape the one twitter profile
+```  
+http://localhost:8080/api/v1/twitter/user/{{twitter_user}}
+```
+
+Twitter user must be without @ example:
+[http://localhost:8080/api/v1/twitter/user/namampe](http://localhost:8080/api/v1/twitter/user/namampe)

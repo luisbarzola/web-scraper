@@ -23,9 +23,11 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->configure('twitter');
+
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,11 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->singleton(
+    \App\Services\Twitter\Contracts\TwitterInterface::class,
+    \App\Services\Twitter\Manager::class
+);
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -67,6 +74,10 @@ $app->singleton(
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
+$app->routeMiddleware([
+    'source' => App\Http\Middleware\SourceMiddleware::class,
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -80,7 +91,7 @@ $app->singleton(
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +106,7 @@ $app->singleton(
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
+    'prefix' => 'api/v1'
 ], function ($router) {
     require __DIR__.'/../routes/web.php';
 });
